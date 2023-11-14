@@ -1,5 +1,7 @@
-import socket
 from threading import Thread
+import socket
+import os
+
 
 class Proxy2Server(Thread):
   def __init__(self, host, port):
@@ -7,14 +9,14 @@ class Proxy2Server(Thread):
     self.client = None  #interface client socket
     self.port = port
     self.host=host
-    self.server = socket.socket(socket.AF_INET,     
-                                socket.SOCK_STREAM)
+    self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     self.server.connect((host, port))
   
   def run(self):
     while True:
       data= self.server.recv(4096)
       if data:
+        print(f"[{self.port}] <- {data}") #preguntar a Edgar
         self.client.sendall(data)
         
 
@@ -24,8 +26,7 @@ class Client2Proxy(Thread):
     self.server = None  #interface server socket
     self.port = port
     self.host=host
-    sock = socket.socket(socket.AF_INET,     
-                                socket.SOCK_STREAM)
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     sock.bind((host, port))
     sock.listen(1)
@@ -36,6 +37,7 @@ class Client2Proxy(Thread):
     while True:
       data= self.client.recv(4096)
       if data:
+        print(f"[{self.port}] -> {data}") #preguntar a Edgar
         self.server.sendall(data)
 
 class Proxy(Thread):
@@ -51,12 +53,26 @@ class Proxy(Thread):
       print ("[proxy({})] setting up".format(self.port))
       self.c2p = Client2Proxy(self.from_host, self.port)
       self.p2s = Proxy2Server(self.to_host, self.port)
-      print ("[proxy({})] connection established".format(self.port))
+      print (f"[proxy({self.port})] connection established")
       self.c2p.server = self.p2s.server
-      self.p2s.client = self..server
+      self.p2s.client = self.c2p.client
       
       self.c2p.start()
       self.p2s.start()
+
+master_server = Proxy('0.0.0.0' , 'servers IP', 8080)
+master_server.start()
+
+while True:
+  try:
+    cmd = input('$ ')
+    if cmd[:4] =='quit':
+      os._exit(0)
+
+  except Exception as e:
+    print(e)
+    
+    
 
 
 
