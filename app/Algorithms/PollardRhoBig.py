@@ -1,5 +1,5 @@
-from EllipticCurvesBig import EllipticCurve, Point
-from Utils import multiplicative_inverse
+from app.Algorithms.EllipticCurves import Point, EllipticCurve
+from app.Algorithms.Utils import multiplicative_inverse
 import math
 import random
 

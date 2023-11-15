@@ -1,5 +1,5 @@
-import random
-from Utils import multiplicative_inverse, power
+from app.Algorithms.Utils import multiplicative_inverse, power
+from app.Algorithms.Constants import ALPHABET
 
 class Point:
 
@@ -57,7 +57,7 @@ class Point:
     return self + self * (exp-1)
   
   def __eq__(self, other):
-    return (self.x == other.x)
+    return (self.x == other.x and self.y == other.y)
 
   def __neg__(self):
     return Point(
@@ -90,9 +90,11 @@ class EllipticCurve:
     # Calculate all possible points
     self.I = Point(None, None, self)
     self.allPoints = []
+    self.char2Points = {}
+    self.point2Char = {}
+
     # Iterate over all values of X in F_n
     for x in range(self.modulus):
-      x2 = x**2 % self.modulus
 
       # Evaluating x^3 + ax + b
       right_result = (
@@ -100,15 +102,21 @@ class EllipticCurve:
       ) % self.modulus
 
       # Seek for values on y in F_n that can get the same result with y^2
-      possible_y = []
       if right_result in self.y2Exps:
         values = self.y2Exps[right_result]
 
         for y in values:
           self.allPoints.append(Point(x,y,self))
+          self.char2Points[(x,y)] = chr(len(self.allPoints) + 31)
 
     self.allPoints = sorted(self.allPoints, key=lambda item: item.x)
     self.allPoints.insert(0, self.I)
+
+    # Create a dictionary to map points to chars in alphabet
+    for i in range(len(ALPHABET)):
+      point = self.allPoints[i]
+      self.point2Char[(point.x, point.y)] = ALPHABET[i]
+      self.char2Points[ALPHABET[i]] = self.allPoints[i]
     
     self.order = len(self.allPoints)
   

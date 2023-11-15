@@ -1,5 +1,5 @@
-from EllipticCurvesBig import EllipticCurve, Point
-from PollardRhoBig import pollard_rho
+from app.Algorithms.EllipticCurves import Point, EllipticCurve
+from app.Algorithms.PollardRhoBig import pollard_rho
 
 curve = EllipticCurve(416,569,659)
 a = Point(23,213,curve)

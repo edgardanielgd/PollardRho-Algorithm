@@ -1,7 +1,7 @@
-from EllipticCurvesBig import EllipticCurve, Point
+from app.Algorithms.EllipticCurves import EllipticCurve, Point
 import random
 
-class Client:
+class AlgorithmClient:
   def __init__(self, curve : EllipticCurve, key : int):
     self.curve = curve
     self.privKey = key

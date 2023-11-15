@@ -1,5 +1,5 @@
-from EllipticCurvesBig import EllipticCurve, Point
-from Client import Client
+from app.Algorithms.EllipticCurves import Point, EllipticCurve
+from app.Algorithms.Client import Client
 
 curve = EllipticCurve(416,569,659)
 g = Point(23,213,curve)
