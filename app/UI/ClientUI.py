@@ -25,4 +25,13 @@ class ClientUI(QMainWindow, ClientUI_Interface):
         # Encrypt message
         c1, c2 = self.algorithm.encrypt(self.algorithm.getPubKey(), points)
 
-        return c1,c2
+        # Decrypt message
+        m = self.algorithm.decrypt(c1, c2)
+
+        # Parse points to string
+        message = ""
+        for point in m:
+            message += self.algorithm.curve.point2Char[(point.x, point.y)]
+
+        print(message)
+    
