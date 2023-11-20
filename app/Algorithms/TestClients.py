@@ -5,28 +5,35 @@ curve = EllipticCurve(416,569,659)
 g = Point(23,213,curve)
 curve.setGenerator(g)
 
-clientA = Client(
-  curve, 10
-)
 
-plain = [
-  Point(381, 307, curve)
-]
+point = Point(91, 166, curve)
+p = curve.compressPoint(point)
+print(p)
+pagain = curve.decompressPoint(p)
+print(pagain)
 
-clientB = Client(
-  curve, 25
-)
+# clientA = Client(
+#   curve, 10
+# )
 
-cipher = clientB.encrypt(
-  clientA.getPubKey(),
-  plain
-)
+# plain = [
+#   Point(381, 307, curve)
+# ]
 
-plainAgain = clientA.decrypt(
-  cipher[0], cipher[1]
-)
+# clientB = Client(
+#   curve, 25
+# )
 
-print(
-  clientA.getPubKey(),
-  cipher[0], cipher[1][0], plainAgain[0]
-)
+# cipher = clientB.encrypt(
+#   clientA.getPubKey(),
+#   plain
+# )
+
+# plainAgain = clientA.decrypt(
+#   cipher[0], cipher[1]
+# )
+
+# print(
+#   clientA.getPubKey(),
+#   cipher[0], cipher[1][0], plainAgain[0]
+# )

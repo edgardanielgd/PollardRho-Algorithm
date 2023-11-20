@@ -1,7 +1,6 @@
-from typing import Any
-from PySide6.QtCore import Slot, QObject, QThreadPool, QThread
+from threading import Thread
 
-class WorkerThread(QThread):
+class WorkerThread(Thread):
     def __init__(self, fn, *args, **kwargs):
         super(WorkerThread, self).__init__()
         
@@ -18,7 +17,6 @@ class WorkerThread(QThread):
 
 def createThread(fn, *args, **kwargs):
     worker = WorkerThread(fn, *args, **kwargs)
-    worker.finished.connect(worker.deleteLater)
     
     return worker
     

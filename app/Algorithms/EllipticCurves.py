@@ -133,11 +133,14 @@ class EllipticCurve:
       power(x,3,self.modulus) + self.a * x + self.b
     ) % self.modulus
     
-    y : int = self.y2Exps[y_2]
+    y : int = self.y2Exps[y_2][0]
 
-    if is_even and y & 1:
+    if is_even and y % 2 == 0:
+      return Point(x, y, self)
+    
+    if not is_even and y % 2 == 1:
       return Point(x, y, self)
 
-    return Point(x, self.modulus - y, self)
+    return Point(x, self.y2Exps[y_2][1], self)
 
   

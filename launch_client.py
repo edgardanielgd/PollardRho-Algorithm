@@ -12,7 +12,7 @@ g = Point(23,213,curve)
 curve.setGenerator(g)
 
 # Create a main chat window
-mainChat = ClientUI(curve, 10, 3000)
+mainChat = ClientUI(curve)
 
 mainChat.show()
 

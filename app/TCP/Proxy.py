@@ -2,7 +2,6 @@ from threading import Thread
 import socket
 import os
 
-
 class Proxy2Server(Thread):
   def __init__(self, host, port):
     super(Proxy2Server, self).__init__()
@@ -59,24 +58,3 @@ class Proxy(Thread):
       
       self.c2p.start()
       self.p2s.start()
-
-master_server = Proxy('0.0.0.0' , 'servers IP', 8080)
-master_server.start()
-
-while True:
-  try:
-    cmd = input('$ ')
-    if cmd[:4] =='quit':
-      os._exit(0)
-
-  except Exception as e:
-    print(e)
-    
-    
-
-
-
-
-        
-        
-      
