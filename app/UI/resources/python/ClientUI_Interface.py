@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'mainClient.ui'
+## Form generated from reading UI file 'mainClient.UI'
 ##
 ## Created by: Qt User Interface Compiler version 6.6.0
 ##
@@ -132,7 +132,7 @@ class ClientUI_Interface(object):
         self.lblSecureMessage_4.setTextFormat(Qt.RichText)
         self.btnConnect = QPushButton(self.centralwidget)
         self.btnConnect.setObjectName(u"btnConnect")
-        self.btnConnect.setGeometry(QRect(370, 120, 101, 31))
+        self.btnConnect.setGeometry(QRect(310, 120, 101, 31))
         self.btnConnect.setFont(font2)
         self.btnConnect.setStyleSheet(u"color:white;\n"
 "background-color: black;\n"
@@ -141,7 +141,7 @@ class ClientUI_Interface(object):
 "border-color: red;")
         self.btnDisconnect = QPushButton(self.centralwidget)
         self.btnDisconnect.setObjectName(u"btnDisconnect")
-        self.btnDisconnect.setGeometry(QRect(500, 120, 101, 31))
+        self.btnDisconnect.setGeometry(QRect(420, 120, 101, 31))
         self.btnDisconnect.setFont(font2)
         self.btnDisconnect.setStyleSheet(u"color:white;\n"
 "background-color: black;\n"
@@ -164,9 +164,18 @@ class ClientUI_Interface(object):
 "color: white;")
         self.btnGenerateKey = QPushButton(self.centralwidget)
         self.btnGenerateKey.setObjectName(u"btnGenerateKey")
-        self.btnGenerateKey.setGeometry(QRect(620, 120, 121, 31))
+        self.btnGenerateKey.setGeometry(QRect(530, 120, 121, 31))
         self.btnGenerateKey.setFont(font2)
         self.btnGenerateKey.setStyleSheet(u"color:white;\n"
+"background-color: black;\n"
+"border-width: 1px;\n"
+"border-style: solid;\n"
+"border-color: red;")
+        self.btnClearCache = QPushButton(self.centralwidget)
+        self.btnClearCache.setObjectName(u"btnClearCache")
+        self.btnClearCache.setGeometry(QRect(660, 120, 121, 31))
+        self.btnClearCache.setFont(font2)
+        self.btnClearCache.setStyleSheet(u"color:white;\n"
 "background-color: black;\n"
 "border-width: 1px;\n"
 "border-style: solid;\n"
@@ -195,5 +204,6 @@ class ClientUI_Interface(object):
         self.btnDisconnect.setText(QCoreApplication.translate("MainWindow", u"Disconnect", None))
         self.lblSecureMessage_5.setText(QCoreApplication.translate("MainWindow", u"Private key", None))
         self.btnGenerateKey.setText(QCoreApplication.translate("MainWindow", u"Generate key", None))
+        self.btnClearCache.setText(QCoreApplication.translate("MainWindow", u"Clear cache", None))
     # retranslateUi
 

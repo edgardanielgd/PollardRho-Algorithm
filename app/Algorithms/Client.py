@@ -2,12 +2,14 @@ from app.Algorithms.EllipticCurves import EllipticCurve, Point
 import random
 
 class AlgorithmClient:
-  def __init__(self, curve : EllipticCurve, key : int):
+  def __init__(self, curve : EllipticCurve, key : int, generateKey = True):
     self.curve = curve
     self.privKey = key
 
     # Calculate client's public key
-    self.pubKey = curve.g * key
+    self.pubKey = None
+    if generateKey:
+      self.pubKey = curve.g * key
 
   def getPubKey(self) -> Point:
     return self.pubKey

@@ -29,6 +29,8 @@ class ClientUI(QMainWindow, ClientUI_Interface):
         self.btnConnect.clicked.connect(self.connect)
         self.btnDisconnect.clicked.connect(self.disconnect)
 
+        self.btnClearCache.clicked.connect(lambda: self.peersKeys.clear())
+
         # Cache peers public keys
         self.peersKeys = {}
 
@@ -47,12 +49,16 @@ class ClientUI(QMainWindow, ClientUI_Interface):
         self.btnConnect.setEnabled(False)
 
         displayInformationMsg("Success", "Connected successfully")
+
+        self.lstInboxMessages.addItem(f"[INFO] Listening on port {port}")
     
     def disconnect(self):
         self.TCPUser.disconnect()
 
         self.btnConnect.setEnabled(True)
         displayInformationMsg("Success", "Disconnected successfully")
+
+        self.lstInboxMessages.addItem(f"[INFO] Disconnected")
     
     def receiveMessage(self, message, address):
         """
@@ -92,6 +98,8 @@ class ClientUI(QMainWindow, ClientUI_Interface):
             self.peersKeys[address[0]] = key
 
             print(f"Key for {address} received, {key}")
+
+            self.lstInboxMessages.addItem(f"[INFO] Key for {address[0]}:{peer_port} received, {key}")
             return
         
         if type == "key_exchange_request":
@@ -105,6 +113,8 @@ class ClientUI(QMainWindow, ClientUI_Interface):
             )
 
             print(f"Key for {address} sent, {key}")
+            
+            self.lstInboxMessages.addItem(f"[INFO] Key for {address[0]}:{peer_port} sent, {key}")
             return
 
         if type == "message":
@@ -113,13 +123,9 @@ class ClientUI(QMainWindow, ClientUI_Interface):
             points = []
             c1 = None
 
-            print("Encrypted")
-
             for word in separated_points:
                 pair = word[-1]
                 msg = word[:-1]
-
-                print(msg,pair)
 
                 try:
                     msg = int(msg)
@@ -145,8 +151,9 @@ class ClientUI(QMainWindow, ClientUI_Interface):
             for point in m:
                 if (point.x, point.y) in self.algorithm.curve.point2Char:
                     message += self.algorithm.curve.point2Char[(point.x, point.y)]
+                
             # Append messsage to text box
-            self.lstInboxMessages.addItem(f"Address [{address}] : {message}")
+            self.lstInboxMessages.addItem(f"[MESSAGE] Address [{address[0]}:{peer_port}] : {message}")
 
     def generatePublicKey(self):
         key = self.txtPrivateKey.toPlainText()
@@ -160,6 +167,8 @@ class ClientUI(QMainWindow, ClientUI_Interface):
         displayInformationMsg("Success", "Public key generated")
 
         print("Public key",self.algorithm.getPubKey())
+
+        self.lstInboxMessages.addItem(f"[INFO] Public key generated, {self.algorithm.getPubKey()}")
 
     def sendTCPMessage(self):
 

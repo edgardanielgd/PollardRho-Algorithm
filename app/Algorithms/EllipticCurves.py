@@ -53,8 +53,12 @@ class Point:
   
     if exp == 1:
       return Point(self.x, self.y, self.curve)
-  
-    return self + self * (exp-1)
+
+    point = self + self.curve.I
+    for _ in range(1, exp):
+      point = point + self
+
+    return point
   
   def __eq__(self, other):
     return (self.x == other.x and self.y == other.y)

@@ -7,10 +7,12 @@ curve.setGenerator(g)
 
 
 point = Point(91, 166, curve)
-p = curve.compressPoint(point)
-print(p)
-pagain = curve.decompressPoint(p)
-print(pagain)
+# p = curve.compressPoint(point)
+# print(p)
+# pagain = curve.decompressPoint(p)
+# print(pagain)
+
+print(point * 100)
 
 # clientA = Client(
 #   curve, 10

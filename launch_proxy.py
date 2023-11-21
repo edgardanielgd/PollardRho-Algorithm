@@ -1,17 +1,3 @@
-# from app.TCP.Proxy import Proxy
-
-# master_server = Proxy('0.0.0.0' , '127.0.0.1', 9000)
-# master_server.start()
-
-# while True:
-#   try:
-#     cmd = input('$ ')
-#     if cmd[:4] =='quit':
-#       os._exit(0)
-
-#   except Exception as e:
-#     print(e)
-
 from app.TCP.RogueProxy import RogueProxy as Proxy
 from app.Algorithms.EllipticCurves import EllipticCurve, Point
 import os
@@ -33,10 +19,10 @@ while True:
 
     elif command == 'add':
       if len(args) < 4:
-        print('Usage: add <source_hostname> <destination_hostname> <destination_port>')
+        print('Usage: add <source_hostname> <source_port> <destination_hostname> <destination_port>')
         continue
 
-      master_server.add_connection(args[1], args[2], int(args[3]))
+      master_server.add_connection(args[1], int(args[2]), args[3], int(args[4]))
 
     elif command == 'remove':
       if len(args) < 2:
@@ -59,19 +45,19 @@ while True:
 
       master_server.stop_intercepting(int(args[1]))
 
-    elif command == 'lock':
+    elif command == 'find_private':
       if len(args) < 2:
-        print('Usage: intercept <id>')
+        print('Usage: find_private <id>')
         continue
 
-      master_server.block_response(int(args[1]))
-    
-    elif command == "unlock":
-      if len(args) < 2:
-        print('Usage: stop_intercepting <id>')
+      master_server.findPrivate(int(args[1]))
+
+    elif command == 'send':
+      if len(args) < 3:
+        print('Usage: send <id> <message>')
         continue
 
-      master_server.unblock_response(int(args[1]))
+      master_server.sendMessage(int(args[1]), args[2])
 
     elif command == 'help':
       print('Available commands:')
@@ -79,6 +65,7 @@ while True:
       print('  remove <id>')
       print('  intercept <id>')
       print('  stop_intercepting <id>')
+      print('  find_private <id>')
       print('  list')
       print('  quit')
 
