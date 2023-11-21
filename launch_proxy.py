@@ -56,8 +56,9 @@ while True:
       if len(args) < 3:
         print('Usage: send <id> <message>')
         continue
-
-      master_server.sendMessage(int(args[1]), args[2])
+      
+      message = " ".join(args[2:])
+      master_server.sendMessage(int(args[1]), message)
 
     elif command == 'help':
       print('Available commands:')

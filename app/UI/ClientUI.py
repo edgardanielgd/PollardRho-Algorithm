@@ -29,7 +29,11 @@ class ClientUI(QMainWindow, ClientUI_Interface):
         self.btnConnect.clicked.connect(self.connect)
         self.btnDisconnect.clicked.connect(self.disconnect)
 
-        self.btnClearCache.clicked.connect(lambda: self.peersKeys.clear())
+        def clearCacheBox():
+            self.peersKeys.clear()
+            displayInformationMsg('Info','Cache cleaned')
+
+        self.btnClearCache.clicked.connect(clearCacheBox)
 
         # Cache peers public keys
         self.peersKeys = {}
